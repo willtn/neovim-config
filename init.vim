@@ -2,6 +2,9 @@ if &compatible
   set nocompatible
 endif
 
+""" Python3 VirtualEnv
+let g:python3_host_prog = expand('~/.config/nvim/env/bin/python')
+
 " Setup dein {{{
 
 " Add the dein installation directory into runtimepath
@@ -10,17 +13,16 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
-  call dein#add('~/.cache/dein')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('haya14busa/dein-command.vim')
   call dein#add('Yggdroot/indentLine')
   call dein#add('vim-airline/vim-airline')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/echodoc.vim')
-  call dein#add('neovim/node-host', {'build': 'npm install -g neovim'})
   call dein#add('mhinz/vim-sayonara')
   call dein#add('drzel/vim-line-no-indicator')
 
-" syntax 
+" syntax
   call dein#add('othree/html5.vim')
   call dein#add('pangloss/vim-javascript')
   call dein#add('elzr/vim-json')
@@ -37,7 +39,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('lambdalisue/gina.vim')
   call dein#add('junegunn/gv.vim')
 
-" explorer  
+" explorer
   call dein#add('scrooloose/nerdtree')
   call dein#add('Xuyuanp/nerdtree-git-plugin')
   call dein#add('eugen0329/vim-esearch')
@@ -61,7 +63,7 @@ if dein#load_state('~/.cache/dein')
 " deoplete
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/deol.nvim')
-  
+
 " denite
   call dein#add('Shougo/denite.nvim')
   call dein#add('chemzqm/denite-git')
