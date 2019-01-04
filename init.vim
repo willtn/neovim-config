@@ -2,7 +2,7 @@ if &compatible
   set nocompatible
 endif
 
-""" Python3 VirtualEnv
+" Python3 VirtualEnv
 let g:python3_host_prog = expand('~/.config/nvim/env/bin/python')
 
 " Setup dein {{{
