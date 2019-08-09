@@ -10,6 +10,9 @@ let g:python3_host_prog = expand('~/.config/nvim/env/bin/python')
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
+" Add the LanguageClient-neovim installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/autozimu/LanguageClient-neovim
+
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
@@ -17,10 +20,10 @@ if dein#load_state('~/.cache/dein')
   call dein#add('haya14busa/dein-command.vim')
   call dein#add('Yggdroot/indentLine')
   call dein#add('vim-airline/vim-airline')
-  call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/echodoc.vim')
   call dein#add('mhinz/vim-sayonara')
   call dein#add('drzel/vim-line-no-indicator')
+  call dein#add('autozimu/LanguageClient-neovim', {'rev': 'next', 'build': './install.sh'})
 
 " syntax
   call dein#add('othree/html5.vim')
@@ -129,6 +132,7 @@ set wildmode=full
 set autoread
 set fillchars+=vert:│
 set cursorline
+set encoding=UTF-8
 
 " Theme Settings
 colorscheme OceanicNext
@@ -207,5 +211,8 @@ cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayo
 " MultiCursor Settings
 let g:multi_cursor_exit_from_visual_mode=0
 let g:multi_cursor_exit_from_insert_mode=0
+
+" LanguageClient Settings
+" let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
 
 " }}}
