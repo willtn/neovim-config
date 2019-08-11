@@ -2,28 +2,24 @@ if &compatible
   set nocompatible
 endif
 
-" Python3 VirtualEnv
-let g:python3_host_prog = expand('~/.config/nvim/env/bin/python')
-
 " Setup dein {{{
 
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-" Add the LanguageClient-neovim installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/autozimu/LanguageClient-neovim
 
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
   call dein#add('haya14busa/dein-command.vim')
+
+" visual
   call dein#add('Yggdroot/indentLine')
   call dein#add('vim-airline/vim-airline')
-  call dein#add('Shougo/echodoc.vim')
-  call dein#add('mhinz/vim-sayonara')
-  call dein#add('drzel/vim-line-no-indicator')
-  call dein#add('autozimu/LanguageClient-neovim', {'rev': 'next', 'build': './install.sh'})
+  call dein#add('vim-airline/vim-airline-themes')
+
+" language
+  call dein#add('neoclide/coc.nvim', {'merge':0, 'rev': 'release'})
 
 " syntax
   call dein#add('othree/html5.vim')
@@ -32,33 +28,28 @@ if dein#load_state('~/.cache/dein')
   call dein#add('hail2u/vim-css3-syntax')
   call dein#add('ap/vim-css-color')
   call dein#add('valloric/MatchTagAlways', {'on_ft': 'html'})
+  call dein#add('neovimhaskell/haskell-vim')
 
 " git
   call dein#add('tpope/vim-fugitive')
-  call dein#add('chemzqm/vim-easygit')
-  call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
-  call dein#add('rhysd/committia.vim')
   call dein#add('airblade/vim-gitgutter')
-  call dein#add('lambdalisue/gina.vim')
+  call dein#add('rhysd/committia.vim')
+  call dein#add('tpope/vim-git')
   call dein#add('junegunn/gv.vim')
 
-" explorer
+" file explorer
   call dein#add('scrooloose/nerdtree')
   call dein#add('Xuyuanp/nerdtree-git-plugin')
   call dein#add('eugen0329/vim-esearch')
-  call dein#add('nixprime/cpsm', {'build': 'PY3=ON ./install.sh'})
-  call dein#add('junegunn/fzf')
+  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
 " text manipulator
   call dein#add('AndrewRadev/splitjoin.vim')
-  call dein#add('editorconfig/editorconfig-vim')
   call dein#add('tpope/vim-surround')
   call dein#add('tomtom/tcomment_vim')
   call dein#add('terryma/vim-multiple-cursors')
   call dein#add('MartinLafreniere/vim-PairTools')
-
-" emmet
-  call dein#add('mattn/emmet-vim')
 
 " formatter
   call dein#add('sbdchd/neoformat')
@@ -93,6 +84,7 @@ if dein#load_state('~/.cache/dein')
 
 " theme
   call dein#add('mhartington/oceanic-next')
+  call dein#add('junegunn/goyo.vim')
 
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
@@ -108,111 +100,9 @@ if dein#load_state('~/.cache/dein')
   call dein#save_state()
 endif
 
-filetype plugin indent on
-syntax enable
-
 " }}}
 
-" System Settings {{{
+source ~/.config/nvim/base.vim
+source ~/.config/nvim/bindings.vim
+source ~/.config/nvim/plugins.vim
 
-" Neovim Settings
-set termguicolors
-set mouse=a
-set noswapfile
-filetype on
-set number
-set numberwidth=1
-set tabstop=2 shiftwidth=2 expandtab
-set conceallevel=0
-set virtualedit=
-set wildmenu
-set laststatus=2
-set wrap linebreak nolist
-set wildmode=full
-set autoread
-set fillchars+=vert:│
-set cursorline
-set encoding=UTF-8
-
-" Theme Settings
-colorscheme OceanicNext
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-"let g:oceanic_next_highlight_current_line = 1
-
-" indentLine Settings
-let g:indentLine_setColors = 0
-
-" vim-javascript Settings
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-
-" editorconfig Settings
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" git Settings
-set signcolumn=yes
-let g:conflict_marker_enable_mappings = 0
-let g:gitgutter_sign_added = '│'
-let g:gitgutter_sign_modified = '│'
-let g:gitgutter_sign_removed = '│'
-let g:gitgutter_sign_removed_first_line = '│'
-let g:gitgutter_sign_modified_removed = '│'
-
-" vim-airline Settings
-let g:webdevicons_enable_airline_statusline = 0
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#mike#enabled = 1
-set hidden
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline_powerline_fonts = 1
-let g:airline_symbols.branch = ''
-let g:airline_theme='oceanicnext'
-let g:airline#extensions#branch#format = 0
-let g:airline_detect_spelllang=0
-let g:airline_detect_spell=0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#wordcount#enabled = 0
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline_section_y = ''
-let g:airline_section_z = '%{LineNoIndicator()} :%2c'
-let g:line_no_indicator_chars = ['⎺', '⎻', '⎼', '⎽', '_']
-let g:airline_mode_map = {
-      \ 'n'  : '',
-      \ 'i' : '',
-      \ 'R' : '',
-      \ 'v' : '',
-      \ 'V' : '',
-      \ 'c' : '',
-      \ 's' : '',
-      \ 'S' : '',
-      \ ''  : '',
-      \ 't' : '',
-      \}
-let g:airline#extensions#tabline#buffer_idx_format = {
-      \ '0': '0 ',
-      \ '1': '1 ',
-      \ '2': '2 ',
-      \ '3': '3 ',
-      \ '4': '4 ',
-      \ '5': '5 ',
-      \ '6': '6 ',
-      \ '7': '7 ',
-      \ '8': '8 ',
-      \ '9': '9 ',
-\}
-cnoreabbrev <silent> <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
-
-" MultiCursor Settings
-let g:multi_cursor_exit_from_visual_mode=0
-let g:multi_cursor_exit_from_insert_mode=0
-
-" LanguageClient Settings
-" let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
-
-" }}}
